@@ -33,9 +33,12 @@ Docker化とDMデータから直接シェープに変換する機能はいずれ
 
 ## 参考情報
 
-- 大阪市のDMデータは、以下から入手できます。 
+- EPSGコード一覧は、以下を参考にしてください。  
+https://tmizu23.hatenablog.com/entry/20091215/1260868350
+
+- 大阪市のDMデータは、以下から入手できます。  
 https://www.geospatial.jp/ckan/dataset/h30-dm-pdf-dxf
 
-- 大阪市のDMデータの変換データサンプルは以下となります。 
+- 大阪市のDMデータの変換データサンプルは以下となります。  
 https://labo.takamoto.biz/osakadm
 
