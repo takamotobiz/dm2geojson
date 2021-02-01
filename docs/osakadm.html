@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>osaka.mbtiles - TileServer GL</title>
+  <link rel="stylesheet" type="text/css" href="https://labo.takamoto.biz/osaka/mapbox-gl.css" />
+  <link rel="stylesheet" type="text/css" href="https://labo.takamoto.biz/osaka/mapbox-gl-inspect.css" />
+  <script src="https://labo.takamoto.biz/osaka/mapbox-gl.js"></script>
+  <script src="https://labo.takamoto.biz/osaka/mapbox-gl-inspect.min.js"></script>
+  <style>
+    body {background:#fff;color:#333;font-family:Arial, sans-serif;}
+    #map {position:absolute;z-index:2;top:0;left:0;right:250px;bottom:0;}
+    .mapbox-attribution-container {
+      bottom: 0;
+      right: 0;
+      background-color:ivory;
+      position: absolute;
+      z-index: 1;
+      display: block;
+      margin: 0 10 5;
+    }
+    h1 {position:absolute;top:5px;right:0;width:240px;margin:0;line-height:20px;font-size:20px;}
+    #layerList {position:absolute;top:35px;right:0;bottom:0;width:240px;overflow:auto;}
+    #layerList div div {width:15px;height:15px;display:inline-block;}
+  </style>
+</head>
+<body>
+  <h1>osaka.mbtiles</h1>
+  <div id="map">
+    <div class="mapbox-attribution-container">
+      <a href="https://www.geospatial.jp/ckan/dataset/h30-dm-pdf-dxf">大阪市地形図を使用しています</a>
+    </div>
+  </div>
+  <div id="layerList"></div>
+  <pre id="propertyList"></pre>
+ <script>
+  // ブラウザ判定（msie）
+  var agent = window.navigator.userAgent.toLowerCase();
+  if( (agent.indexOf('trident')>-1) || (agent.indexOf('msie')>-1) ){
+    document.write("IEでは地図表示できません。Chrome、Edge、Safariなどをご利用ください。");
+  }
+  else{
+    var map = new mapboxgl.Map({
+      container: 'map',
+      hash: true,
+      style: {
+        version: 8,
+        sources: {
+          'vector_layer_': {
+            type: 'vector',
+            url: 'https://labo.takamoto.biz/osaka/data/osaka.json'
+          }
+        },
+        layers: []
+      },
+      zoom: 14,
+      center: [135.47749, 34.71835]
+    });
+    map.addControl(new mapboxgl.NavigationControl());
+    var inspect = new MapboxInspect({
+      showInspectMap: true,
+      showInspectButton: false
+    });
+    map.addControl(inspect);
+    map.on('styledata', function() {
+      var layerList = document.getElementById('layerList');
+      layerList.innerHTML = '';
+      Object.keys(inspect.sources).forEach(function(sourceId) {
+        var layerIds = inspect.sources[sourceId];
+        layerIds.forEach(function(layerId) {
+          var item = document.createElement('div');
+          item.innerHTML = '<div style="' +
+            'background:' + inspect.assignLayerColor(layerId) + ';' +
+          '"></div> ' + layerId;
+          layerList.appendChild(item);
+        });
+      })
+    });
+  }
+  </script>
+</body>
+</html>
