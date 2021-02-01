@@ -40,5 +40,5 @@ https://tmizu23.hatenablog.com/entry/20091215/1260868350
 https://www.geospatial.jp/ckan/dataset/h30-dm-pdf-dxf
 
 - 大阪市のDMデータの変換データサンプルは以下となります。  
-https://labo.takamoto.biz/osakadm
+https://takamotobiz.github.io/dm2geojson/osakadm.html
 
